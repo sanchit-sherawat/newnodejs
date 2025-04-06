@@ -5,6 +5,8 @@ import userRoutes from './routes/userRoutes';
 import roleRoutes from './routes/roleRoutes';
 import permissionRoutes from './routes/permissionRoutes';
 import connectDB from './config/db';
+import blockRoutes from './routes/blockRoutes';
+import quarriesRoutes from './routes/quarriesRoutes';
 
 dotenv.config();
 
@@ -18,6 +20,9 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/roles', roleRoutes);
 app.use('/api/permissions', permissionRoutes);
+app.use('/api/blocks', blockRoutes);
+// Add Quarries routes
+app.use('/api/quarries', quarriesRoutes);
 
 // Error Handling Middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
