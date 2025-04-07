@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/', createBlock); // POST API to create a block
 router.get('/', getBlocks); // GET API to fetch all blocks
 router.get('/:id', getBlockById); // GET API to fetch a block by ID
-router.get('/:quarryRefId', getBlockByQuarryRefId);
+router.get('/block/:quarryRefId', getBlockByQuarryRefId);
 
 export default router;
