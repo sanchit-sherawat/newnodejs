@@ -19,6 +19,7 @@ export interface IBlock extends Document {
     invoiceNumber: string;
     attachments: string[];
   };
+  quarryRefId: string;
 }
 
 const BlockSchema: Schema = new Schema(
@@ -40,6 +41,9 @@ const BlockSchema: Schema = new Schema(
       truckNumber: { type: String, required: true },
       invoiceNumber: { type: String, required: true },
       attachments: [{ type: String }],
+    },
+    quarryRefId: {
+      type: String, required: true, 
     },
   },
   { timestamps: true }
