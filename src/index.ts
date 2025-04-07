@@ -7,10 +7,13 @@ import permissionRoutes from './routes/permissionRoutes';
 import connectDB from './config/db';
 import blockRoutes from './routes/blockRoutes';
 import quarriesRoutes from './routes/quarriesRoutes';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+// Enable CORS
+app.use(cors());
 const PORT = process.env.PORT || 5001;
 
 // Middleware
@@ -37,3 +40,6 @@ connectDB()
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Enable CORS
+app.use(cors());
+
