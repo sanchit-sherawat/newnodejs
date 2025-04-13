@@ -8,6 +8,8 @@ import connectDB from './config/db';
 import blockRoutes from './routes/blockRoutes';
 import quarriesRoutes from './routes/quarriesRoutes';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
+import uploadRoutes from './routes/uoploadRoute';
 
 dotenv.config();
 
@@ -18,6 +20,11 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(express.json());
+// Enable file upload
+app.use(fileUpload());
+
+// Register routes
+app.use('/api', uploadRoutes);
 
 // Routes
 app.use('/api/users', userRoutes);

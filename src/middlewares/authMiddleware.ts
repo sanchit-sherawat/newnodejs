@@ -28,3 +28,5 @@ export const authorize = (requiredRoles: string[]) => async (req: any , res: Res
     res.status(500).json({ error: 'Authorization error' });
   }
 };
+
+
