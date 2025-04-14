@@ -10,6 +10,7 @@ import quarriesRoutes from './routes/quarriesRoutes';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import uploadRoutes from './routes/uoploadRoute';
+import licenseRoutes from './routes/LicenseRoutes';
 
 dotenv.config();
 
@@ -31,6 +32,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/roles', roleRoutes);
 app.use('/api/permissions', permissionRoutes);
 app.use('/api/blocks', blockRoutes);
+// Register routes
+app.use('/api/licenses', licenseRoutes);
+
 // Add Quarries routes
 app.use('/api/quarries', quarriesRoutes);
 
@@ -47,6 +51,5 @@ connectDB()
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-// Enable CORS
-app.use(cors());
+
 

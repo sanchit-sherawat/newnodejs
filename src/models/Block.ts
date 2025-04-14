@@ -24,7 +24,7 @@ export interface IBlock extends Document {
 
 const BlockSchema: Schema = new Schema(
   {
-    refNumber: { type: String, required: true, unique: true },
+    refNumber: { type: String },
     type: { type: String, enum: ['g', 'm'], required: true },
     dateTime: { type: Date, required: true },
     blockColor: { type: String, required: true },
