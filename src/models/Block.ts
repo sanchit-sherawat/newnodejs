@@ -9,6 +9,7 @@ export interface IBlock extends Document {
   blockDimension: {
     blockLength: number;
     blockWidth: number;
+    blockWeight:number;
     blockHeight: number;
     blockVolume: number;
   };
@@ -20,6 +21,7 @@ export interface IBlock extends Document {
     attachments: string[];
   };
   quarryRefId: string;
+  remarks?: string;
 }
 
 const BlockSchema: Schema = new Schema(
@@ -32,6 +34,7 @@ const BlockSchema: Schema = new Schema(
     blockDimension: {
       blockLength: { type: Number, required: true },
       blockWidth: { type: Number, required: true },
+      blockWeight: { type: Number, required: true },
       blockHeight: { type: Number, required: true },
       blockVolume: { type: Number, required: true },
     },
@@ -41,10 +44,12 @@ const BlockSchema: Schema = new Schema(
       truckNumber: { type: String, required: true },
       invoiceNumber: { type: String, required: true },
       attachments: [{ type: String }],
+
     },
     quarryRefId: {
       type: String, required: true, 
     },
+    remarks: { type: String },
   },
   { timestamps: true }
 );

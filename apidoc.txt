@@ -1,0 +1,301 @@
+# API Documentation
+
+This documentation provides an overview of all the APIs available in your project, categorized by their functionality.
+
+---
+
+## Base URL
+
+`http://localhost:5001/api`
+
+---
+
+## 1. User APIs
+
+### 1.1 Register User
+
+- **URL:** `/users/register`
+- **Method:** `POST`
+- **Description:** Register a new user.
+- **Request Body:**
+
+```json
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "roles": ["role_id"]
+}
+```
+
+- **Response:**
+
+```json
+{
+  "_id": "643e1f9b1c4e2b001c8e4d3b",
+  "username": "john_doe",
+  "email": "john@example.com",
+  "roles": ["role_id"]
+}
+```
+
+### 1.2 Login User
+
+- **URL:** `/users/login`
+- **Method:** `POST`
+- **Description:** Authenticate a user and return a JWT token.
+- **Request Body:**
+
+```json
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "token": "jwt_token",
+  "user": {
+    "_id": "643e1f9b1c4e2b001c8e4d3b",
+    "username": "john_doe",
+    "email": "john@example.com",
+    "roles": ["role_id"]
+  }
+}
+```
+
+### 1.3 Get User Details
+
+- **URL:** `/users/me`
+- **Method:** `GET`
+- **Description:** Fetch the details of the authenticated user.
+- **Headers:**
+  - `Authorization: Bearer <jwt_token>`
+- **Response:**
+
+```json
+{
+  "_id": "643e1f9b1c4e2b001c8e4d3b",
+  "username": "john_doe",
+  "email": "john@example.com",
+  "roles": ["role_id"]
+}
+```
+
+---
+
+## 2. Role APIs
+
+### 2.1 Create Role
+
+- **URL:** `/roles`
+- **Method:** `POST`
+- **Description:** Create a new role.
+- **Request Body:**
+
+```json
+{
+  "name": "admin",
+  "permissions": ["permission_id"]
+}
+```
+
+- **Response:**
+
+```json
+{
+  "_id": "643e1f9b1c4e2b001c8e4d3b",
+  "name": "admin",
+  "permissions": ["permission_id"]
+}
+```
+
+### 2.2 Get All Roles
+
+- **URL:** `/roles`
+- **Method:** `GET`
+- **Description:** Fetch all roles.
+- **Response:**
+
+```json
+[
+  {
+    "_id": "643e1f9b1c4e2b001c8e4d3b",
+    "name": "admin",
+    "permissions": ["permission_id"]
+  }
+]
+```
+
+---
+
+## 3. Permission APIs
+
+### 3.1 Create Permission
+
+- **URL:** `/permissions`
+- **Method:** `POST`
+- **Description:** Create a new permission.
+- **Request Body:**
+
+```json
+{
+  "name": "manage_blocks",
+  "description": "Permission to manage blocks"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "_id": "643e1f9b1c4e2b001c8e4d3b",
+  "name": "manage_blocks",
+  "description": "Permission to manage blocks"
+}
+```
+
+### 3.2 Get All Permissions
+
+- **URL:** `/permissions`
+- **Method:** `GET`
+- **Description:** Fetch all permissions.
+- **Response:**
+
+```json
+[
+  {
+    "_id": "643e1f9b1c4e2b001c8e4d3b",
+    "name": "manage_blocks",
+    "description": "Permission to manage blocks"
+  }
+]
+```
+
+---
+
+## 4. Block APIs
+
+### 4.1 Create Block
+
+- **URL:** `/blocks`
+- **Method:** `POST`
+- **Description:** Create a new block.
+- **Request Body:** *(Sample)*
+
+```json
+{
+  "refNumber": "BLOCK123",
+  "type": "g",
+  "dateTime": "2025-04-14T12:34:56.789Z",
+  "blockColor": "Black",
+  "blockQualityGrade": "A",
+  "blockDimension": {
+    "blockLength": 2.5,
+    "blockWidth": 1.5,
+    "blockHeight": 1.2,
+    "blockWeight": 1500,
+    "blockVolume": 4.5
+  },
+  "additionalDetails": {
+    "purchasingUnit": "ABC Constructions",
+    "wrappingRequired": true,
+    "truckNumber": "TN-01-1234",
+    "invoiceNumber": "INV-56789",
+    "attachments": ["https://example.com/image1.jpg"]
+  },
+  "quarryRefId": "QUARRY001",
+  "remarks": "No issues detected"
+}
+```
+
+- **Response:** *(Shortened for clarity)*
+
+```json
+{
+  "message": "Block created successfully",
+  "block": { ...block details... }
+}
+```
+
+### 4.2 Get All Blocks
+
+- **URL:** `/blocks`
+- **Method:** `GET`
+- **Description:** Fetch all blocks.
+- **Response:** *(Sample structure repeated as list)*
+
+```json
+[
+  { ...block details... }
+]
+```
+
+---
+
+## 5. Block Inspection APIs
+
+### 5.1 Create Block Inspection
+
+- **URL:** `/block-inspections`
+- **Method:** `POST`
+- **Description:** Create a new block inspection.
+- **Request Body:** *(Sample)*
+
+```json
+{
+  "blockMarkerRefNumber": "BLOCK123",
+  "blockSecurity": {
+    "blockNumber": "B001",
+    "dateTime": "2025-04-14T12:34:56.789Z",
+    "type": "Granite",
+    "grade": "A",
+    "blockInspector": "John Doe",
+    "color": "Black",
+    "imageUrls": ["https://example.com/image1.jpg"]
+  },
+  "dimension": {
+    "blockLength": 2.5,
+    "blockWidth": 1.5,
+    "blockHeight": 1.2,
+    "blockWeight": 1500,
+    "blockVolume": 4.5
+  },
+  "observations": {
+    "surfaceQuality": "Good",
+    "structuralIntegrity": "Stable",
+    "thicknessCheck": "Pass"
+  },
+  "crackFractureDetection": {
+    "crackFractureDetection": true,
+    "count": 2,
+    "drawingBoard": ["Side A", "Side B"]
+  },
+  "attachments": {
+    "pictures": ["https://example.com/picture1.jpg"],
+    "remarks": "No major issues detected.",
+    "referenceFiles": ["https://example.com/file1.pdf"]
+  }
+}
+```
+
+### 5.2 Get All Block Inspections
+
+- **URL:** `/block-inspections`
+- **Method:** `GET`
+- **Description:** Fetch all block inspections.
+- **Response:** *(Sample structure repeated as list)*
+
+```json
+[
+  { ...block inspection details... }
+]
+```
+
+---
+
+*Let me know if you'd like this in Swagger/OpenAPI format or if you need Postman collection generation.*
+

@@ -11,6 +11,10 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import uploadRoutes from './routes/uoploadRoute';
 import licenseRoutes from './routes/LicenseRoutes';
+import { authenticate, authorize } from './middlewares/authMiddleware';
+import securityRoutes from './routes/securityRoutes';
+import blockInspectionRoutes from './routes/blockInspectionRoutes';
+
 
 dotenv.config();
 
@@ -24,16 +28,21 @@ app.use(express.json());
 // Enable file upload
 app.use(fileUpload());
 
+
+
 // Register routes
-app.use('/api', uploadRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/roles', roleRoutes);
 app.use('/api/permissions', permissionRoutes);
-app.use('/api/blocks', blockRoutes);
+
 // Register routes
 app.use('/api/licenses', licenseRoutes);
+app.use('/api/blocks', authenticate, authorize(["block_manager"]), blockRoutes);
+app.use('/api/security', authenticate, authorize(["security_manager"]), securityRoutes);
+app.use('/api/block-inspections', authenticate, authorize(["block_inspector"]), blockInspectionRoutes);
 
 // Add Quarries routes
 app.use('/api/quarries', quarriesRoutes);

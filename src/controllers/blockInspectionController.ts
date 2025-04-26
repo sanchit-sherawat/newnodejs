@@ -1,0 +1,48 @@
+import { Request, Response } from 'express';
+import BlockInspection from '../models/BlockInspection';
+
+// Create a new block inspection
+export const createBlockInspection = async (req: Request, res: Response) => {
+  try {
+    const {
+      blockMarkerRefNumber,
+      blockSecurity,
+      dimension,
+      observations,
+      crackFractureDetection,
+      attachments,
+    } = req.body;
+
+    const newBlockInspection = await BlockInspection.create({
+      blockMarkerRefNumber,
+      blockSecurity,
+      dimension,
+      observations,
+      crackFractureDetection,
+      attachments,
+    });
+
+    res.status(201).json({
+      message: 'Block inspection created successfully',
+      blockInspection: newBlockInspection,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error creating block inspection',
+      details: (error as Error).message,
+    });
+  }
+};
+
+// Get all block inspections
+export const getBlockInspections = async (req: Request, res: Response) => {
+  try {
+    const blockInspections = await BlockInspection.find();
+    res.status(200).json(blockInspections);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error fetching block inspections',
+      details: (error as Error).message,
+    });
+  }
+};
