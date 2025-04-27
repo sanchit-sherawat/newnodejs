@@ -65,9 +65,9 @@ const BlockInspectionSchema: Schema = new Schema(
       drawingBoard: [{ type: String, required: true }],
     },
     attachments: {
-      pictures: [{ type: String, required: true }],
+      pictures: [{ type: String }],
       remarks: { type: String, required: true },
-      referenceFiles: [{ type: String, required: true }],
+      referenceFiles: [{ type: String}],
     },
   },
   { timestamps: true }

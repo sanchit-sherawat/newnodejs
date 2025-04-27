@@ -46,3 +46,49 @@ export const getBlockByQuarryRefId = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
+
+// Update block by ID
+export const updateBlockById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updatedBlock = await Block.findByIdAndUpdate(id, req.body, {
+      new: true, // Return the updated document
+      runValidators: true, // Ensure validation rules are applied
+    });
+
+    if (!updatedBlock) {
+      return res.status(404).json({ error: 'Block not found' });
+    }
+
+    res.status(200).json({
+      message: 'Block updated successfully',
+      block: updatedBlock,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error updating block',
+      details: (error as Error).message,
+    });
+  }
+};
+
+export const deleteBlockById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deletedBlock = await Block.findByIdAndDelete(id);
+
+    if (!deletedBlock) {
+      return res.status(404).json({ error: 'Block not found' });
+    }
+
+    res.status(200).json({
+      message: 'Block deleted successfully',
+      block: deletedBlock,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Error deleting block',
+      details: (error as Error).message,
+    });
+  }
+};

@@ -23,7 +23,7 @@ const SecurityCheckSchema: Schema = new Schema(
     truckDetails: {
       truckNumber: { type: String, required: true },
       truckWeight: { type: Number, required: true },
-      document: { type: String, required: true },
+      document: { type: String },
     },
   },
   { timestamps: true }
