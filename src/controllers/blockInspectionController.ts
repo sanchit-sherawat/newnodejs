@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import BlockInspection from '../models/BlockInspection';
+import SecurityCheck from '../models/SecurityCheck';
 
 // Create a new block inspection
 export const createBlockInspection = async (req: Request, res: Response) => {
@@ -46,3 +47,16 @@ export const getBlockInspections = async (req: Request, res: Response) => {
     });
   }
 };
+
+// Get all security checks
+export const getAllSecurityChecks = async (req: Request, res: Response) => {
+    try {
+      const securityChecks = await SecurityCheck.find(); // Fetch all security checks
+      res.status(200).json(securityChecks);
+    } catch (error) {
+      res.status(500).json({
+        error: 'Error fetching security checks',
+        details: (error as Error).message,
+      });
+    }
+  };

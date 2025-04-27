@@ -38,7 +38,10 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email }).select('+password'); // Include password for comparison
+    const user = await User.findOne({ email })
+      .select('+password') // Include password for comparison
+      .populate('roles'); // Populate roles to include role details
+
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -52,7 +55,7 @@ export const loginUser = async (req: Request, res: Response) => {
       _id: user._id,
       username: user.username,
       email: user.email,
-      roles: user.roles,
+      roles: user.roles, // This will now include the populated role details
     };
 
     res.status(200).json({ token, user: userData });
