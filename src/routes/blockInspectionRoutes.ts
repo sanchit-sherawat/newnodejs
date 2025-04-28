@@ -1,5 +1,5 @@
 import express from 'express';
-import { createBlockInspection, getAllSecurityChecks, getBlockInspections } from '../controllers/blockInspectionController';
+import { createBlockInspection, getAllSecurityChecks, getAllSecurityChecksWithBlocks, getBlockInspections } from '../controllers/blockInspectionController';
 
 const router = express.Router();
 
@@ -10,5 +10,7 @@ router.post('/', createBlockInspection);
 router.get('/', getBlockInspections);
 // New route to get all security checks
 router.get('/all-security-checks', getAllSecurityChecks);
+router.get('/security-checks-with-blocks', getAllSecurityChecksWithBlocks);
+
 
 export default router;

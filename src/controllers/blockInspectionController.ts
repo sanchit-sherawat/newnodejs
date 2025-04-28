@@ -60,3 +60,23 @@ export const getAllSecurityChecks = async (req: Request, res: Response) => {
       });
     }
   };
+
+  export const getAllSecurityChecksWithBlocks = async (req: Request, res: Response) => {
+    try {
+      const securityChecks = await SecurityCheck.find()
+        .populate({
+          path: 'blockMarkerRefNumber', // Field in SecurityCheck
+          model: 'Block', // Reference model
+          localField: 'blockMarkerRefNumber', // Field in SecurityCheck
+          foreignField: 'refNumber', // Field in Block
+          justOne: true, // Return a single block
+        });
+  
+      res.status(200).json(securityChecks);
+    } catch (error) {
+      res.status(500).json({
+        error: 'Error fetching security checks with related blocks',
+        details: (error as Error).message,
+      });
+    }
+  };
